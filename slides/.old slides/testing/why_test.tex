@@ -1,0 +1,36 @@
+%!TEX root = ../../master.tex
+\section{Testing}
+\author{Mathias}
+\subsection{Why We Test}
+
+\begin{frame}{Testing}
+    \framesubtitle{Why We Test}
+    \begin{itemize}
+        \item Making sure that the code behaves as expected
+        \item Preventing \textbf{regressions}
+        \item Easing development and \textbf{maintainability}
+        \item Assessing performance
+        \item Finding and resolving bottlenecks
+        \item Guaranteeing specifications and \textbf{consistency} in usage
+    \end{itemize}
+\end{frame}
+
+\subsection{How We Test}
+\begin{frame}{Testing}
+    \framesubtitle{How We Test}
+    \begin{itemize}
+        \item<1-> Unit and integration tests
+            \begin{itemize}
+                \item Used frequently \textbf{during development}
+                \item Catches \textbf{regressions}
+                \item Part of our continuous deployment
+            \end{itemize}
+        \item<2-> System and load testing
+            \begin{itemize}
+                \item To \textbf{gauge performance}
+                \item Test \textbf{interfacing} with the system
+            \end{itemize}
+    \end{itemize}
+    \note<1-1>[item]{We use JUnit}
+    \note<1-1>[item]{Over 150 tests}
+\end{frame}

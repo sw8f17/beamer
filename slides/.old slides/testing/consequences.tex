@@ -1,0 +1,32 @@
+%!TEX root = ../../master.tex
+\subsection{Consequences}
+\begin{frame}{System \& Load Testing}
+    \framesubtitle{Consequences}
+    \begin{itemize}
+        \item<1-> Inconsistencies
+            \begin{itemize}
+                \item Duplicated drivers
+                \item Unaccessible objects
+                \item Fix: Hibernate OGM replaced with \textbf{Hibernate ORM}
+            \end{itemize}
+        \item<2-> Poor Performance
+            \begin{itemize}
+                \item Worse over time
+                \item Hibernate ORM did not improve performance as expected
+                \item Fix: Slow queries --- introduction of \textbf{indices}
+                \item Fix: Query optimization
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{System \& Load Testing}
+    \framesubtitle{Performance Gains from Data Persistence Changes}
+    \begin{figure}[htb]
+        \centering
+        \resizebox{1\textwidth}{!}{%
+        \subimport{graphs/}{resp_sql_war.tex}
+        }
+    \end{figure}
+    \note[item]{NoSQL does not have MiscDataPoints}
+    \note[item]{Both uses Submitting Data test plan under normal load 1000 routes}
+\end{frame}

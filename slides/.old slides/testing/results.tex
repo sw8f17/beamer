@@ -1,0 +1,57 @@
+%!TEX root = ../../master.tex
+\subsection{Results}
+\begin{frame}[fragile]{System \& Load Testing}
+    \framesubtitle{Results --- Submitting data | Normal Load (1000 routes)}
+    Fast response! Limited by delay in testplan
+    \begin{figure}[htb]
+        \centering
+        \resizebox{0.9\textwidth}{!}{%
+        \subimport{graphs/}{resp_dist_normal.tex}
+        }
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]{System \& Load Testing}
+    \framesubtitle{Results --- Submitting data | Heavy Load (4000 routes)}
+    Acceptable response times in our context
+    \begin{figure}[htb]
+        \centering
+        \resizebox{0.9\textwidth}{!}{%
+        \subimport{graphs/}{resp_dist_heavy.tex}
+        }
+    \end{figure}
+\end{frame}
+
+\begin{frame}{System \& Load Testing}
+    \framesubtitle{Submitting Data --- Real World Scenarios}
+    \begin{itemize}
+        \item Less frequent data submitting
+        \item More periodic load
+        \item Handling of unavailability
+        \item Spikes could have domino effect
+    \end{itemize}
+    \note[item]{Marc: talk about spike handling}
+\end{frame}
+
+\begin{frame}[fragile]{System \& Load Testing}
+    \framesubtitle{Results --- Fetching data | Normal Load}
+    Limited by bandwidth, and output size dependent
+    \begin{figure}[htb]
+        \centering
+        \resizebox{0.9\textwidth}{!}{%
+        \subimport{graphs/}{fetch_normal.tex}
+        }
+    \end{figure}
+    \note[item]{Normal load: 100 threads with 25 sequential fetches}
+\end{frame}
+\begin{frame}[fragile]{System \& Load Testing}
+    \framesubtitle{Results --- Fetching data | Heavy Load}
+    Limited by bandwidth, and output size dependent
+    \begin{figure}[htb]
+        \centering
+        \resizebox{0.9\textwidth}{!}{%
+        \subimport{graphs/}{fetch_heavy.tex}
+        }
+    \end{figure}
+    \note[item]{Heavy load: 400 threads with 25 sequential fetches}
+\end{frame}
+

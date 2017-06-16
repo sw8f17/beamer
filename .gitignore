@@ -1,0 +1,66 @@
+# Object files
+*.o
+*.ko
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+/*.bat
+/*.sh
+
+*.log
+
+
+# In .gitignore
+*.fls
+*.vrb
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+master.pdf
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.fdb_latexmk
+
+master.thm
+
+*.cb
+*.cb2
+*.soc
+*.loc
+*.brf
+
+*.orig
+*.vrb
+_minted-master

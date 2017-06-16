@@ -1,0 +1,26 @@
+%!TEX root = ../../master.tex
+\section{Testing Scalability}
+
+\begin{frame}{Testing Scalability}
+    \framesubtitle{How We Would Test Load Scalability}
+    \only<1| handout:1>{%
+        Software
+        \begin{itemize}
+            \item Load test $\rightarrow$ Optimize hot code and bottlenecks $\rightarrow$ Load test and compare
+            \item \textbf{Optimizing} queries
+            \item Fine tuning configuration
+        \end{itemize}
+    }
+    \only<2| handout:2>{%
+        Hardware
+        \begin{itemize}
+            \item \textbf{Vertical}: Load test $\rightarrow$ Restrict resources on server $\rightarrow$ Load test and compare
+            \item \textbf{Horizontal}: Load test $\rightarrow$ Scale out! $\rightarrow$ Load test and compare
+            \item Test across different setups
+            \item \textbf{Estimate} further scaling
+            \item Horizontal scaling adds \textbf{complexity}
+            \item Ideally, \textbf{linear} performance gain
+        \end{itemize}
+    }
+\end{frame}
+

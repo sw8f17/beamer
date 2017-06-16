@@ -1,0 +1,298 @@
+%%% Initial things %%%
+% Increase number of dimen registers
+\usepackage{etex}
+% Fix various issues with LaTeX2e
+\usepackage{fixltx2e}
+% Font package
+\usepackage{fourier}
+% Import package
+\usepackage{import}
+\usepackage{shellesc}
+
+
+%%% Translations and character encodings %%%
+% Enable use of several characters, including æ, ø and å
+\usepackage[utf8]{inputenc}
+% Danish language
+\usepackage[danish]{babel}
+% Use PostScript fonts instead of bitmap ones. Also does other stuff.
+\usepackage[T1]{fontenc}
+% Various LaTeX symbols
+\usepackage{latexsym}
+% Wider selection of colours
+\usepackage{xcolor}
+\definecolor{aaublue}{gray}{0}
+\definecolor{bluekeywords}{gray}{0}
+\definecolor{greencomments}{gray}{0.5}
+\definecolor{redstrings}{gray}{0.3}
+\definecolor{codebg}{HTML}{EFEFEF}
+\definecolor{codefg}{HTML}{000000}
+\definecolor{part}{HTML}{34495E}
+\definecolor{numbers}{HTML}{34495E}
+\definecolor{smartdiagram1}{HTML}{1ABC9C}
+\definecolor{smartdiagram2}{HTML}{2ECC71}
+\definecolor{smartdiagram3}{HTML}{3498db}
+\definecolor{smartdiagram4}{HTML}{9b59b6}
+\definecolor{smartdiagram5}{HTML}{E74C3C}
+\definecolor{smartdiagram6}{HTML}{F1C40F}
+\definecolor{smartdiagram7}{HTML}{E67E22}
+\definecolor{diagramDark}{HTML}{19B5FE}
+\definecolor{diagramLight}{HTML}{6BB9F0}
+
+\definecolor{tableGoodLight}{HTML}{87D37C}
+\definecolor{tableGoodDark}{HTML}{26A65B}
+\definecolor{tableBadLight}{HTML}{EC644B}
+\definecolor{tableBadDark}{HTML}{EF4836}
+
+% Improved element justification
+\usepackage{ragged2e}
+% Font improvements
+\usepackage{fix-cm}
+% Enables various forms of lines, like double-underlining (\uuline{})
+\usepackage{ulem}
+% Sets the tolerance for distance between words, determining when to hyphenate.
+\pretolerance=2500
+
+
+%%% Figures and tables (Floats) %%%
+% Enable multi-rows and -columns
+\usepackage{multirow}
+\usepackage{multicol}
+% Double, horizontal lines
+\usepackage{hhline}
+% Enables coloured tables
+\usepackage{colortbl}
+% Prettier tables
+\usepackage{booktabs}
+
+
+%%% Mathematic formulas %%%
+% AMS math
+\usepackage{amsmath}
+\usepackage{amssymb}
+% Extra fonts (for math, I think)
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+% Access text symbols
+\usepackage{textcomp}
+% Extend AMS
+\usepackage{mathtools}
+\usepackage{cancel}
+
+
+%%% Graphics %%%
+% Various image-commands
+\usepackage{eso-pic}
+% Use JPEG and PNG images
+\usepackage{graphicx}
+
+\definecolor{listback}{rgb}{0.95,0.95,0.92}
+\definecolor{lstkeywords}{rgb}{0.10,0.10,0.50}
+\definecolor{lstrule}{rgb}{0.60, 0.60, 0.60}
+\definecolor{lstoperator}{rgb}{0.10,0.50,0.10}
+\definecolor{diagramLight}{HTML}{6BB9F0}
+
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{lstautogobble}
+\lstset{%
+  autogobble,
+  backgroundcolor=\color{listback},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  deletekeywords={},            % if you want to delete keywords from the given language
+  escapeinside={<@}{@>},          % if you want to add LaTeX within your code
+  extendedchars=false,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=none,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\bfseries\color{lstkeywords},       % keyword style
+  morekeywords={define, local, case, do, anywherein, forever, mod, continue, break},            % if you want to add more keywords to the set
+  rulecolor=\color{lstrule},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  numbers=left,
+  numbersep=5pt,
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\bfseries\color{redstrings},     % string literal style
+  tabsize=4,                       % sets default tabsize to 2 spaces
+  columns=fullflexible,
+}
+%%% References, bibtex and URLs %%%
+% Post URLs. Allows breaking at hyphens to help avoid long links.
+\usepackage{url}
+% Better cross references
+\usepackage[danish]{varioref}
+% Define a new 'leo' style for URL package, that will use a smaller font
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}
+}
+\makeatother
+% And of course, use this new style
+\urlstyle{leo}
+
+%This does not work for me for some reason --Caspar
+%%% Algorithmicx (Pseudocode) %%%
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+%\algrenewcommand\algorithmicfunction{\textbf{method}}
+%\alglanguage{pseudocode}
+%\newcommand\Fontvi{\fontsize{10}{7.2}\selectfont}
+
+
+\hypersetup{pdfstartview={Fit}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Flowchart
+%Tikz related
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{tikz-qtree}
+\usepackage{tikzscale}
+\usetikzlibrary{%
+    shapes,
+    shapes.symbols,
+    arrows,
+    positioning,
+    backgrounds,
+    matrix,
+    patterns,
+    calc,
+    fit,
+    math,
+    shapes.multipart,
+    automata,
+    shadows,
+    decorations.pathreplacing
+}
+\tikzset{
+    invisible/.style={opacity=0,text opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\lstset{escapeinside={<@}{@>}}
+
+\usepackage{anyfontsize}
+\setbeamerfont{caption}{size=\tiny}
+
+\usepackage{units}
+
+\usepackage{minted}
+\newminted[java2]{java}{frame=leftline, framesep=1mm,  fontsize=\footnotesize, baselinestretch=1.1, autogobble}
+\newminted[xmlblock]{xml}{frame=leftline, framesep=2mm, linenos, fontsize=\footnotesize, baselinestretch=1.1, autogobble}
+\newminted[bashblock]{shell}{frame=leftline, framesep=2mm, linenos, fontsize=\footnotesize, baselinestretch=1.1, autogobble, breaklines, breakanywhere}
+\newmintedfile{java}{frame=leftline, framesep=2mm, linenos, fontsize=\footnotesize, baselinestretch=1.1}
+\usemintedstyle{tango}
+
+
+\makeatletter
+
+\tikzset{%
+  fancy quotes/.style={
+    text width=\fq@width pt,
+    align=justify,
+    inner sep=1em,
+    anchor=north west,
+    minimum width=\linewidth,
+  },
+  fancy quotes width/.initial={.8\linewidth},
+  fancy quotes marks/.style={
+    scale=8,
+    text=white,
+    inner sep=0pt,
+  },
+  fancy quotes opening/.style={
+    fancy quotes marks,
+  },
+  fancy quotes closing/.style={
+    fancy quotes marks,
+  },
+  fancy quotes background/.style={
+    show background rectangle,
+    inner frame xsep=0pt,
+    background rectangle/.style={
+      fill=gray!25,
+      rounded corners,
+    },
+  }
+}
+
+\newenvironment{fancyquotes}[1][]{%
+\noindent
+\tikzpicture[fancy quotes background]
+\node[fancy quotes opening,anchor=north west] (fq@ul) at (0,0) {``};
+\tikz@scan@one@point\pgfutil@firstofone(fq@ul.east)
+\pgfmathsetmacro{\fq@width}{\linewidth - 2*\pgf@x}
+\node[fancy quotes,#1] (fq@txt) at (fq@ul.north west) \bgroup}
+{\egroup;
+\node[overlay,fancy quotes closing,anchor=east] at (fq@txt.south east) {''};
+\endtikzpicture}
+
+\makeatother
+
+\definecolor{GoogleGreen}{HTML}{4CAF50}
+\definecolor{GoogleRed}{HTML}{F44336}
+\definecolor{GooglePurple}{HTML}{9C27B0}
+\definecolor{GoogleDeepPurple}{HTML}{673AB7}
+\definecolor{GoogleIndigo}{HTML}{3F51B5}
+\definecolor{GoogleBlue}{HTML}{2196F3}
+\definecolor{GoogleLightBlue}{HTML}{03A9F4}
+\definecolor{GoogleCyan}{HTML}{00BCD4}
+\definecolor{GoogleTeal}{HTML}{009688}
+\definecolor{GoogleLightGreen}{HTML}{8BC34A}
+\definecolor{GoogleLime}{HTML}{CDDC39}
+\definecolor{GoogleYellow}{HTML}{FFEB3B}
+\definecolor{GoogleAmber}{HTML}{FFC107}
+\definecolor{GoogleOrange}{HTML}{FF9800}
+\definecolor{GoogleDeepOrange}{HTML}{FF5722}
+\definecolor{GoogleBrown}{HTML}{795548}
+\definecolor{GoogleGrey}{HTML}{9E9E9E}
+\definecolor{GoogleBlueGrey}{HTML}{607D8B}
+
+\usepackage{tcolorbox}
+
+\makeatletter
+\newtcbox{\code}{
+    on line,
+    fontupper=\small\ttfamily,
+    boxrule=0.5pt,
+    arc=2pt,
+    coltext=codefg,
+    colback=codebg,
+    colframe=codebg,
+    boxsep=0pt,
+    shrink tight,
+    extrude by=2pt
+}
+\makeatother
+
+\usepackage{tabu}
+\usepackage{tabularx}
+\newcommand{\tblgrpsep}{\noalign{\vspace{.75em}}}
+
+\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+\newmintedfile[jsoncode]{json}{
+%  fontfamily=tt,
+linenos=true,
+bgcolor=mintedbackground,
+%  numbersep=5pt,
+%  gobble=0,
+%  frame=leftline,
+% framerule=1.4pt,
+%  framesep=10mm,
+%  funcnamehighlighting=true,
+%  tabsize=4,
+%  obeytabs=false,
+%  mathescape=false
+%  samepage=false, %with this setting you can force the list to appear on the same page
+%  showspaces=false,
+%  showtabs =false,
+%  texcl=false,
+xleftmargin=2.0em,
+frame=leftline, framesep=1mm,  fontsize=\footnotesize, baselinestretch=1.1, autogobble
+}

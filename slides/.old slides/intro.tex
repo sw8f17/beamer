@@ -1,0 +1,93 @@
+\section{Introduction}
+\author{Thomas}
+\subsection{Our idea}
+
+\begin{frame}{Our idea}
+    \framesubtitle{What led to the system}
+    \begin{itemize}
+        \item<1-> Our topic
+        \item<2-> Problem statement
+
+        \vspace{-12pt}
+        \medskip
+        {\addtolength{\leftskip}{2mm}\addtolength{\rightskip}{2mm}\noindent\hrulefill\it
+
+        \noindent How can a \textbf{scalable} system be designed and implemented,
+        such that geospatial and \textbf{relevant data can be collected} and aggregated in a \textbf{timely} way from a disjoint \textbf{fleet of vehicles},
+        while maintaining \textbf{arbitrary possibilities} of presenting the data to a given user?
+
+        \vspace{-8pt}
+        \noindent\hrulefill
+
+        }
+        \item<3-> Use case
+        \begin{itemize}
+            \item<3-> Lorry drivers
+        \end{itemize}
+        \item<4-> State of the art
+        \begin{itemize}
+            \item<4-> Fleetio
+        \end{itemize}
+    \end{itemize}
+    \note<1-1>[item]{tracking of cars, get overview of fleet of vehicles, OBD, impractical to work with real car}
+    \note<2-2>[item]{How can a \textbf{scalable} system be designed and implemented,
+        such that geospatial and \textbf{relevant data can be collected} and aggregated in a \textbf{timely} way from a disjoint \textbf{fleet of vehicles},
+        while maintaining \textbf{arbitrary possibilities} of presenting the data to a given user?}
+    \note<3-3>[item]{Different use cases, to narrow the area of interest: military, taxi, buses, lorry drivers}
+    \note<3-3>[item]{We choose lorry drivers: easy info, comprehensible problem, had some interesting aspects: long hauls etc.}
+    \note<4-4>[item]{sota, to see what was out there, lots of closed solutions}
+    \note<4-4>[item]{found fleetio interesting, for small companies, lacks automation, full OBD advantage}
+
+\end{frame}
+
+\subsection{System overview}
+\begin{frame}{System overview}
+    \framesubtitle{Overview of the system}
+    \begin{figure}
+        \pgfdeclarelayer{background}
+        \pgfsetlayers{background,main}
+        \tikzstyle{bgbox}=[fill=green!20, rounded corners, draw=GoogleGreen, dashed]
+        \center
+        \begin{tikzpicture}[auto, node distance=1.5cm,
+                stage/.style={rectangle, rounded corners, minimum width=1.5cm, minimum height=1cm,text centered, fill=diagramLight, draw, align=center},
+                sharp/.style={rectangle, minimum width=9.0cm, minimum height=1cm,text centered, fill=diagramLight, draw, align=center},
+                server/.style={rectangle, rounded corners, minimum width=1.5cm, minimum height=1cm,text centered, fill=diagramLight, rectangle split, rectangle split parts=2, draw},
+                flow/.style={draw, ->},
+                reverse_flow/.style={draw, <-},
+                double_flow/.style={draw, <->},
+                create/.style={draw, ->},
+                use/.style={draw, dotted, ->}
+            ]
+            %, line width=0.5mm, draw=black
+            \node (backend) at (0,0) [stage, visible on=<3->] {Back--end};
+
+            \node (web2) [draw, visible on=<3->, cloud, cloud puffs=12, cloud ignores aspect, minimum width=0.8cm, minimum height=0.5cm,fill=blue!20, left=0.2cm of backend] {};
+
+            \node (dataprov) [stage, visible on=<1->, left=0.2cm of web2] {Producer \\ client};
+            \node (ghost1) [draw=none, visible on=<1->, left=0.7cm of dataprov] {};
+            \node (car) [stage, visible on=<1->, above=0.4cm of ghost1] {Car};
+            \node (sat) [stage, visible on=<1->, below=0.4cm of ghost1] {GPS \\ satellite};
+
+            \node (web1) [draw, visible on=<3->, cloud, cloud puffs=12, cloud ignores aspect, minimum width=0.8cm, minimum height=0.5cm,fill=blue!20, right=0.2cm of backend] {};
+
+            \node (front) [stage, visible on=<2->, right=0.2cm of web1] {Consumer \\ client};
+
+            \draw [double_flow, visible on=<3->] (backend) -- (web2);
+            \draw [double_flow, visible on=<3->] (web2) -- (dataprov);
+
+            \draw [double_flow, visible on=<1->] (dataprov) -| (sat);
+            \draw [double_flow, visible on=<1->] (dataprov) -| (car);
+
+            \draw [double_flow, visible on=<3->] (backend) -- (web1);
+            \draw [double_flow, visible on=<3->] (web1) -- (front);
+        \end{tikzpicture}
+    \end{figure}
+    \note<1-1>[item]{\textbf{Producer client}, collection of data, different data sources, car, gps, camera etc., outputs in normalised format}
+    \note<1-1>[item]{\textbf{Car}, OBD, other sources of data}
+    \note<1-1>[item]{\textbf{GPS}, position data, time, speed}   
+    \note<2-2>[item]{\textbf{Consumer client}, different types, BI system, DW system, GUI of back--end, what needs the data}
+    \note<3-3>[item]{\textbf{Back--end}, combine producer and consumer, our focus, REST API, db}
+    \note<3-3>[item]{normalise data at producer client, back--end don't about data source}
+    \note<3-3>[item]{neutral data, different devices: tablets, web, etc.}
+    \note<3-3>[item]{Troels talk more about the back--end.}
+\end{frame}

@@ -1,0 +1,13 @@
+[
+    {
+      "driver" : {
+        "id" : 12345
+      },
+      "routeState" : "ACTIVE",
+      "id" : 100,
+      "vehicle" : {
+        ...
+      }
+    }, 
+    ...
+]

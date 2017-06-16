@@ -1,0 +1,104 @@
+% !TeX spellcheck = da_DK
+% Setup document class.
+%  This will always be the beamer class, but depending on the use of notes,
+%  it can be annotated with the option [notes] or  [notes=only], depending
+%  on whether notes should be included, or should be the only thing in
+%  the document.
+\documentclass[notes=hide,handout]{beamer}
+
+% Setup theme.
+%\input{preamble/simpletheme.tex}
+\input{preamble/regulartheme.tex}
+
+
+% Import preamble
+\input{preamble/preamble.tex}
+\setcounter{tocdepth}{1}
+
+% Uncomment for handouts
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]
+
+% Additional settings for boxes
+\setbeamercolor{headerCol}{fg=black,bg=lightgray}
+\setbeamercolor{bodyCol}{fg=white,bg=gray}
+\setbeamercovered{transparent=20}
+\setbeameroption{show notes}
+%\setbeameroption{hide notes on second screen=right}
+\newenvironment{bbox}[1]{%
+\begin{beamerboxesrounded}[upper=headerCol,lower=bodyCol,shadow=true]{#1}}{%
+\end{beamerboxesrounded}}
+
+% Define document stuff
+\title{Internet Technology}
+\subtitle[Exam]{Exam}
+\author[SW708E16]{Group SW708E16}
+\date{25\textsuperscript{th} of January 2017}
+
+\institute[
+%  {\includegraphics[scale=0.2]{aau_segl}}\\ %insert a company, department or university logo
+Software 7\\
+Aalborg University\\
+Danmark
+] % optional - is placed in the bottom of the sidebar on every slide
+{% is placed on the title page
+  Software 7\\
+  Aalborg University\\
+  Denmark
+
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+
+% Specify a logo on the titlepage (you can specify additional logos an include them in
+% institute command below
+\pgfdeclareimage[height=1.5cm]{titlepagelogo}{AAUgraphics/aau_logo_new} % placed on the title page
+%\pgfdeclareimage[height=1.5cm]{titlepagelogo2}{graphics/aau_logo_new} % placed on the title page
+\titlegraphic{% is placed on the bottom of the title page
+  \pgfuseimage{titlepagelogo}
+  %  \hspace{1cm}\pgfuseimage{titlepagelogo2}
+}
+
+\usepackage{fontspec}
+\setsansfont{Roboto}
+
+\let\oldtextbf\textbf
+\renewcommand{\textbf}[1]{\textcolor{beamer@headercolor}{\oldtextbf{#1}}}
+\begin{document}
+\begin{frame}[plain,noframenumbering]
+
+\end{frame}
+
+{\aauwavesbg
+  \begin{frame}[plain,noframenumbering]
+    \titlepage
+  \end{frame}}
+
+´%\begin{frame}[noframenumbering]{Introduction}
+´%  \begin{multicols}{2}
+´%    \tableofcontents
+´%  \end{multicols}
+´%  \note[item]{Thomas - Intro \& Explanation of the overall concept}
+´%  \note[item]{Troels - Development of the back--end}
+´%  \note[item]{Jesper - The shortcomings of the back--end}
+´%  \note[item]{Mathias - Testing of the back--end}
+´%  \note[item]{Kasper - Frontend description \& demo}
+´%  \note[item]{Marc - Reflection}
+´%\end{frame}
+
+% ==================== SUBJECTS ======================
+% \input{slides/scrum}
+\subimport{slides/thomas/}{index.tex}
+\subimport{slides/jesper/}{index.tex}
+\subimport{slides/troels/}{index.tex}
+\subimport{slides/sass/}{index.tex}
+\subimport{slides/marc/}{index.tex}%
+
+% ====================================================
+
+% Final slide
+{\aauwavesbg
+  \begin{frame}[plain,noframenumbering]
+    \finalpage{\texttt{\textbf{return} PresentationStatus.Completed;}}
+  \end{frame}}
+
+\end{document}
