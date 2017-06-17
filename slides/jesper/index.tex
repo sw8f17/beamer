@@ -1,0 +1,299 @@
+\section{Design}
+\author{Jesper}
+\begin{frame}{Design}
+	\framesubtitle{Separation}
+	\begin{itemize}
+		\item{Reading/Decoding MP3}
+		\item{Playing audio synchronously}
+		\item{Establishing connection}
+		\item{Network communication}
+	\end{itemize}
+\end{frame}
+
+\section{Decoding}
+
+\begin{frame}{Decoding}
+	\framesubtitle{Assumption}
+	Fast reading and decoding of MP3 data isn't feasible in pure Java
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{JNI to the rescue}
+	JNI let's us bind \textbf{native} libraries to the Java executable, and
+	invoke procedures in them.
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{JNI to the rescue}
+	\centering
+	\begin{tikzpicture}[
+			->,>=stealth',
+			auto,
+			node distance=1cm,
+			thick,
+			main node/.style={rectangle, draw}
+		]
+
+		\node[main node] (1) {Caller};
+		\node[main node] (2) [right = of 1] {MP3Decoder};
+		\node[main node] (3) [below = of 2] {MP3File};
+		\node[main node] (4) [right = of 2] {Native library};
+
+		\path[draw, every node/.style={font=\sffamily\small}]
+			(1) edge[bend left] node [] {Open file} (2)
+			(2) edge[bend left] node [] {Return MP3File} (1)
+			(2) edge[dashed] node [] {Instantiates} (3)
+			(2) edge[] node [] {Uses} (4)
+			(3) -| node [pos=.25, below] {Uses} (4);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{JNI to the rescue}
+	\centering
+	\begin{tikzpicture}[
+			->,>=stealth',
+			auto,
+			node distance=1cm,
+			thick,
+			main node/.style={rectangle, draw}
+		]
+
+		\node[main node] (1) {Caller};
+		\node[main node] (3) [right = of 1] {MP3File};
+		\node[main node] (2) [above = of 3] {MP3Decoder};
+		\node[main node] (4) [right = of 2] {Native library};
+
+		\path[draw, every node/.style={font=\sffamily\small}]
+			(1) edge[bend left] node [] {Decode frame} (3)
+			(3) edge[bend left] node [] {Return frame data} (1)
+			(2) edge[] node [] {Uses} (4)
+			(3) -| node [pos=.25, below] {Uses} (4);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{MPG123}
+	\begin{itemize}
+		\item{Fast decoding}
+		\item{Well supported (Last release 2 weeks ago)}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{Realization}
+	While developing the later parts of the system we happened upon the
+	android class called \textbf{MediaCodec}, which would have solved
+	the problem.
+\end{frame}
+
+\begin{frame}{Decoding}
+	\framesubtitle{Realization}
+	While developing the later parts of the system we happened upon the
+	android class called \textbf{MediaCodec}, which would have solved
+	the problem.
+\end{frame}
+
+\section{Playback}
+\begin{frame}{Playback}
+	\framesubtitle{Observation}
+	Other apps seem to \textbf{drift}, which would indicate a difference
+	of playback rate on different devices. We will use \textbf{active}
+	synchronization to stay synchronized.
+\end{frame}
+
+\begin{frame}[fragile]{Playback}
+	\framesubtitle{The idea}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[%
+				node distance=0,
+				every node/.style = {%
+					inner sep=0,
+					outer sep=0,
+				},
+				timeline/.style = {%
+					minimum height = 10mm,
+					minimum width = #1,
+				},
+				occurance/.style = {%
+					minimum height = 12mm,
+					minimum width = 0.5mm,
+					fill=black,
+				},
+				textlabel/.style = {%
+				}
+			]
+			\node[timeline = 15mm, fill=black!20] (b1) [] {};
+			\node[timeline = 15mm, fill=black!10] (b2) [right=of b1] {};
+			\node[timeline = 15mm, fill=black!20] (b3) [right=of b2] {};
+			\node[timeline = 15mm, fill=black!10] (b4) [right=of b3] {};
+			\node[occurance] (t0) [left = of b1] {};
+			\node[occurance] (t1) [right = of b1] {};
+			\node[occurance] (t2) [right = of b2] {};
+			\node[occurance] (t3) [right = of b3] {};
+			\node[fit={(b1) (b2) (b3) (b4)}, draw=black] (bc) {};
+
+			\node[textlabel] (t0l) [below = 5mm of t0] {0};
+			\node[textlabel] (t1l) [below = 5mm of t1] {144};
+			\node[textlabel] (t2l) [below = 5mm of t2] {288};
+			\node[textlabel] (t3l) [below = 5mm of t3] {432};
+
+			\draw[-] (t0l) -- (t0);
+			\draw[-] (t1l) -- (t1);
+			\draw[-] (t2l) -- (t2);
+			\draw[-] (t3l) -- (t3);
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Playback}
+	\framesubtitle{Reality bites back}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[%
+				node distance=0,
+				every node/.style = {%
+					inner sep=0,
+					outer sep=0,
+				},
+				timeline/.style = {%
+					minimum height = 10mm,
+					minimum width = #1,
+				},
+				occurance/.style = {%
+					minimum height = 12mm,
+					minimum width = 0.5mm,
+					fill=black,
+				},
+				textlabel/.style = {%
+				}
+			]
+			\node[timeline = 15mm, fill=black, opacity=.2] (b1) [] {};
+			\node[timeline = 15mm, fill=black, opacity=.1] (b2) [right=-5mm of b1] {};
+			\node[timeline = 15mm, fill=black, opacity=.2] (b3) [right=2mm of b2] {};
+			\node[timeline = 15mm, fill=black, opacity=.1] (b4) [right=3mm of b3] {};
+			\node[occurance] (t0) [left = of b1] {};
+			\node[occurance] (t1) [left = of b2] {};
+			\node[occurance] (t2) [left = of b3] {};
+			\node[occurance] (t3) [left = of b4] {};
+			\node[fit={(b1) (b2) (b3) (b4)}, draw=black] (bc) {};
+
+			\node[textlabel] (t0l) [below = 5mm of t0] {0};
+			\node[textlabel] (t1l) [below = 5mm of t1] {144};
+			\node[textlabel] (t2l) [below = 5mm of t2] {288};
+			\node[textlabel] (t3l) [below = 5mm of t3] {432};
+
+			\draw[-] (t0l) -- (t0);
+			\draw[-] (t1l) -- (t1);
+			\draw[-] (t2l) -- (t2);
+			\draw[-] (t3l) -- (t3);
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Playback}
+	\framesubtitle{Observation}
+	The mismatches are often below 1000 bytes ($5.6ms$) \textbf{per
+	frame}, and tend average out around 0.
+\end{frame}
+
+\begin{frame}[fragile]{Playback}
+	\framesubtitle{Fuzz factor}
+	\begin{figure}
+	\centering
+		\begin{tikzpicture}[%
+				node distance=0,
+				every node/.style = {%
+					inner sep=0,
+					outer sep=0,
+				},
+				timeline/.style = {%
+					minimum height = 40mm,
+					minimum width = #1,
+				},
+				region/.style = {%
+					timeline = #1,
+					draw,
+					dashed,
+					fill = none,
+				},
+				occurance/.style = {%
+					minimum height = 12mm,
+					minimum width = 0.5mm,
+					fill=black,
+				},
+				textlabel/.style = {%
+				}
+			]
+			\node[timeline = 25mm, fill=black, opacity=.1] (b1) [] {};
+			\node[timeline = 25mm, fill=black, opacity=.1] (b2) [right=5mm of b1] {};
+			\node[region = 15mm] (fuzz) at (b1.east) {};
+			\node[fit={(b1) (b2)}, draw=black] (bc) {};
+
+			\draw[decoration={brace, mirror, raise = 1pt, amplitude=8pt}, decorate, thick]
+				(fuzz.south west) -- node[below=10pt] {fuzz factor} (fuzz.south east);
+
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Playback}
+	\framesubtitle{Realization}
+	Our discovery of MediaCodec led us to \textbf{MediaSync}, which
+	would do a lot of these things for us, including resampling and
+	scheduling audio. Unfortunately we discovered it too late.
+\end{frame}
+
+\begin{frame}{Synchronization}
+	\framesubtitle{Observation}
+	Content synchronisation is \textbf{largely} a matter of agreeing on
+	some \textbf{wall-time}, and using that as the authoritative source.
+\end{frame}
+
+\begin{frame}{Synchronization}
+	\framesubtitle{Synchronization algorithm}
+	\centering
+	\begin{tikzpicture}[
+			->,>=stealth',
+			auto,
+			node distance=0.5cm,
+			thick,
+			main node/.style={rectangle, draw}
+		]
+
+		\node[main node] (c1) {$C_1$};
+		\node[main node] (c2) [above = of c1] {$C_2$};
+
+		\node[main node] (t0) [label={below:$t_0$}, right = of c1] {};
+		\node[main node] (t1) [label={$t_1$}, right = 1.5cm of c2] {};
+		\node[main node] (t2) [label={$t_2$}, right = of t1] {};
+		\node[main node] (t3) [label={below:$t_3$}, right = 2.5cm of t0] {};
+
+		\node[] (c1e) [right = 5cm of c1] {};
+		\node[] (c2e) [right = 5cm of c2] {};
+
+		\path[draw, every node/.style={font=\sffamily\small}]
+			(c1) edge[-] node [] {} (t0)
+			(t0) edge[-] node [] {} (t3)
+			(t3) edge[-] node [] {} (c1e);
+		\path[draw, every node/.style={font=\sffamily\small}]
+			(c2) edge[-] node [] {} (t1)
+			(t1) edge[-] node [] {} (t2)
+			(t2) edge[-] node [] {} (c2e);
+
+		\path[draw, every node/.style={font=\sffamily\small}]
+			(t0) edge[-] node [] {} (t1)
+			(t2) edge[-] node [] {} (t3);
+	\end{tikzpicture}
+	\vspace{1cm}
+
+	$\theta = \frac{(t_1 - t_0) + (t_2 - t_3)}{2}$
+\end{frame}
+
+\begin{frame}{Synchronization}
+	\framesubtitle{Going back to the local network}
+	NTP provides synchronization provides accurate time synchronizations
+	with an \textbf{external} authoritative wall-clock. We just need
+	\textbf{local consensus}.
+\end{frame}
