@@ -1,13 +1,21 @@
-%Testing
-% - Why do we test?
-% - What did we want to test?
-% -- Did we?
-% - How did the tests work?
-% - What did we gain/learn from the test
-\def\relativepath{\import@path}
 \author{Troels}
 \section{Testing}
+    \subsection{What kind of tests did we have?}
+        \begin{frame}{Testing}\framesubtitle{What kind of tests did we have?}
+            \begin{itemize}
+                \item Objective vs subjective
+                \item Automation vs manual
+            \end{itemize}
+        \end{frame}
     \subsection{Why we test?}
+        \begin{frame}{Testing}\framesubtitle{Why we test?}
+            \begin{itemize}
+                \item We test to measure certain factors
+                \item We test to compare ourselves with the competition
+                \item We want to evalutate our app
+            \end{itemize}
+        \end{frame}
+    \subsection{What aspects did we test for?}
         \begin{frame}{Testing}\framesubtitle{What aspects did we test for?}
             \begin{itemize}
                 \item Offset
@@ -22,7 +30,7 @@
             Drift test:\bigskip
             \begin{figure}
                 \centering
-                \resizebox{0.7\linewidth}{!}{%
+                \resizebox{0.7\textwidth}{!}{%
                     \only<1>{
                         \begin{tikzpicture}
                             \begin{axis}[legend pos=north west,
@@ -67,7 +75,7 @@
                                 ymax=50,
                                 xlabel={Time in seconds},
                                 ylabel={Actual Delay in ms}]
-                                            \addplot table [col sep=comma, only marks] {slides/troels/smus_long_norm.csv};
+                                \addplot table [col sep=comma, only marks] {slides/troels/smus_long_norm.csv};
                                 %\addplot[domain=-15:15, samples=100,red]{(23.211)*x+131.26};
                                 %\legend{$Data$,$f(x)=23.211*x+131.26$}
                             \end{axis}
@@ -76,6 +84,71 @@
                 }
                 \caption{Stream Me Up Scotty drift test results.}\label{fig:smus_drift_test_filter}
             \end{figure}%
+        \end{frame}
+
+        \begin{frame}{Testing}\framesubtitle{Comparsion}
+            \begin{columns}
+                \begin{column}{0.5\textwidth}
+                    \begin{figure}
+                        \resizebox{1.0\textwidth}{!}{%
+                        \begin{tikzpicture}
+                            \begin{axis}[legend pos=north west,
+                                scatter/classes={ c={mark=o,draw=black,fill=black}% 
+                                },
+                                axis lines=center,
+                                axis line style={-},
+                                x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+                                y label style={at={(axis description cs:-0.1,0.55)},rotate=90,anchor=south},
+                                minor tick num=3,
+                                major grid style={line width=.5pt,draw=gray!40},
+                                grid=both,
+                                grid style={line width=.2pt, draw=gray!40},
+                                xmin=0,
+                                xmax=510,
+                                ymin=45,
+                                ymax=55,
+                                xlabel={Time in seconds},
+                                ylabel={Actual Delay in ms}]
+                                \addplot table [col sep=comma, only marks] {slides/troels/ss_long_norm.csv};
+                                %\addplot[domain=-15:15, samples=100,red]{(23.211)*x+131.26};
+                                %\legend{$Data$,$f(x)=23.211*x+131.26$}
+                            \end{axis}
+                        \end{tikzpicture}
+                        }
+                        \caption{SoundSeeder drift test results.}\label{fig:ss_drift_test_filter}
+                    \end{figure}
+                \end{column}
+                \begin{column}{0.5\textwidth}  %%<--- here
+                    \begin{figure}
+                        \resizebox{1.0\textwidth}{!}{%
+                            \begin{tikzpicture}
+                                \begin{axis}[legend pos=north west,
+                                    scatter/classes={ c={mark=o,draw=black,fill=black}% 
+                                    },
+                                    axis lines=center,
+                                    axis line style={-},
+                                    x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+                                    y label style={at={(axis description cs:-0.1,0.55)},rotate=90,anchor=south},
+                                    minor tick num=3,
+                                    major grid style={line width=.5pt,draw=gray!40},
+                                    grid=both,
+                                    grid style={line width=.2pt, draw=gray!40},
+                                    xmin=0,
+                                    xmax=510,
+                                    ymin=0,
+                                    ymax=50,
+                                    xlabel={Time in seconds},
+                                    ylabel={Actual Delay in ms}]
+                                    \addplot table [col sep=comma, only marks] {slides/troels/ampme_long_norm.csv};
+                                    %\addplot[domain=-15:15, samples=100,red]{(23.211)*x+131.26};
+                                    %\legend{$Data$,$f(x)=23.211*x+131.26$}
+                                \end{axis}
+                            \end{tikzpicture}
+                        }
+                        \caption{AmpMe drift test results.}\label{fig:ampme_drift_test_filter}
+                    \end{figure}
+                \end{column}
+            \end{columns}
         \end{frame}
 
         \begin{frame}{Testing}\framesubtitle{What were the results?}
@@ -95,6 +168,11 @@
     \subsection{What did we gain from the tests?}
         \begin{frame}{Testing}\framesubtitle{What did we gain from the tests?}
             \begin{itemize}
+                \item Planning out tests, helped us figure out what was important
+                \begin{itemize}
+
+                    \item Helped us design the app
+                \end{itemize}
                 \item Our app has a low offset, most of the time
                 \begin{itemize}
                     \item Filtering out outliers
