@@ -1,0 +1,108 @@
+%Testing
+% - Why do we test?
+% - What did we want to test?
+% -- Did we?
+% - How did the tests work?
+% - What did we gain/learn from the test
+\def\relativepath{\import@path}
+\author{Troels}
+\section{Testing}
+    \subsection{Why we test?}
+        \begin{frame}{Testing}\framesubtitle{What aspects did we test for?}
+            \begin{itemize}
+                \item Offset
+                \item Consistency
+                \item Drift
+            \end{itemize}
+        \end{frame}
+%    \subsection{What did we actually test?}
+%    \subsection{How did we test?}
+    \subsection{What were the results?}
+        \begin{frame}{Testing}\framesubtitle{What were the results?}
+            Drift test:\bigskip
+            \begin{figure}
+                \centering
+                \resizebox{0.7\linewidth}{!}{%
+                    \only<1>{
+                        \begin{tikzpicture}
+                            \begin{axis}[legend pos=north west,
+                                scatter/classes={ c={mark=o,draw=black,fill=black}%
+                                },
+                                axis lines=center,
+                                axis line style={-},
+                                x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+                                y label style={at={(axis description cs:-0.2,0.55)},rotate=90,anchor=south},
+                                minor tick num=3,
+                                major grid style={line width=.5pt,draw=gray!40},
+                                grid=both,
+                                grid style={line width=.2pt, draw=gray!40},
+                                xmin=0,
+                                xmax=510,
+                                ymin=-1100,
+                                ymax=200,
+                                xlabel={Time in seconds},
+                                ylabel={Actual Delay in ms}]
+                                \addplot table [col sep=comma, only marks] {slides/troels/smus_long_norm.csv};
+                                %\addplot[domain=-15:15, samples=100,red]{(23.211)*x+131.26};
+                                %\legend{$Data$,$f(x)=23.211*x+131.26$}
+                            \end{axis}
+                        \end{tikzpicture}
+                    }
+                    \only<2>{
+                        \begin{tikzpicture}
+                            \begin{axis}[legend pos=north west,
+                                scatter/classes={ c={mark=o,draw=black,fill=black}%
+                                },
+                                axis lines=center,
+                                axis line style={-},
+                                x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+                                y label style={at={(axis description cs:-0.2,0.55)},rotate=90,anchor=south},
+                                minor tick num=3,
+                                major grid style={line width=.5pt,draw=gray!40},
+                                grid=both,
+                                grid style={line width=.2pt, draw=gray!40},
+                                xmin=0,
+                                xmax=510,
+                                ymin=-30,
+                                ymax=50,
+                                xlabel={Time in seconds},
+                                ylabel={Actual Delay in ms}]
+                                            \addplot table [col sep=comma, only marks] {slides/troels/smus_long_norm.csv};
+                                %\addplot[domain=-15:15, samples=100,red]{(23.211)*x+131.26};
+                                %\legend{$Data$,$f(x)=23.211*x+131.26$}
+                            \end{axis}
+                        \end{tikzpicture}
+                    }
+                }
+                \caption{Stream Me Up Scotty drift test results.}\label{fig:smus_drift_test_filter}
+            \end{figure}%
+        \end{frame}
+
+        \begin{frame}{Testing}\framesubtitle{What were the results?}
+            Consistency test:\bigskip
+            \begin{table}[ht]
+                \centering
+                \footnotesize
+                \begin{tabularx}{0.97\textwidth}{Xcccc}
+                    \toprule
+                    Measurement                 & \# 1      & \# 2      & \# 3     & \# 4     \\\midrule
+                    Measured delay [ms]         & 21.104    & 14.167    & 16,125   & 25.796   \\
+                    Relative to previous [ms]   & N/A       & 6.937     & -1.958   & -9.671   \\\bottomrule
+                \end{tabularx}
+                \caption{Stream Me Up Scotty next song test results.}\label{fig:smus_pause_resume}
+            \end{table}
+        \end{frame}
+    \subsection{What did we gain from the tests?}
+        \begin{frame}{Testing}\framesubtitle{What did we gain from the tests?}
+            \begin{itemize}
+                \item Our app has a low offset, most of the time
+                \begin{itemize}
+                    \item Filtering out outliers
+                \end{itemize}
+                \item The offset in our app changes often
+                \begin{itemize}
+                    \item Smoothing could help out here
+                \end{itemize}
+
+            \end{itemize}
+        \end{frame}
