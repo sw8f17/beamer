@@ -305,9 +305,23 @@ frame=leftline, framesep=1mm,  fontsize=\footnotesize, baselinestretch=1.1, auto
 
 
 
+
 \usepackage{currfile}
 \makeatletter
 \def\relativepath{\import@path}
 \makeatother
 
 \usepackage[caption=false]{subfig}
+
+\usepackage{mdframed}
+\mdfsetup{topline=false, rightline=false, leftline=false, bottomline=false}
+
+\definecolor{GoogleBlue}{HTML}{2196F3}
+\colorlet{Highlight}{GoogleBlue}
+\newenvironment{problemstatement}
+    {\begin{mdframed}[
+        linewidth=1pt,
+        linecolor=Highlight,
+        leftline=true]}
+    {\end{mdframed}}
+
