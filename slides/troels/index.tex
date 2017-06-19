@@ -155,7 +155,7 @@
             Consistency test:\bigskip
             \begin{table}[ht]
                 \centering
-                \footnotesize
+                \scriptsize
                 \begin{tabularx}{0.97\textwidth}{Xcccc}
                     \toprule
                     Measurement                 & \# 1      & \# 2      & \# 3     & \# 4     \\\midrule
@@ -165,14 +165,42 @@
                 \caption{Stream Me Up Scotty next song test results.}\label{fig:smus_pause_resume}
             \end{table}
         \end{frame}
-    \subsection{What did we gain from the tests?}
-        \begin{frame}{Testing}\framesubtitle{What did we gain from the tests?}
+        \begin{frame}{Testing}\framesubtitle{What were the results?}
+        Consistency test:\bigskip
+            \begin{table}[ht]
+                \centering
+                \scriptsize
+                \begin{tabularx}{0.97\textwidth}{Xcccc}
+                    \toprule
+                    Measurement                 & \# 1      & \# 2     & \# 3     & \# 4      \\ \midrule
+                    Measured delay [ms]         & -156.208  & -133.146 & -110.063 & -133.417   \\
+                    Relative to previous [ms]   & N/A       & 23.062   & 23.083   & -23.354   \\ \bottomrule
+                \end{tabularx}
+                \caption{AmpMe next song test results.}
+                \label{fig:ampmenextsongfigure}
+            \end{table}
+            \begin{table}[ht]
+                \centering
+                \scriptsize
+                \begin{tabularx}{0.97\textwidth}{Xrrrrr}
+                    \toprule
+                    Measurement                 & \# 1      & \# 2      & \# 3     & \# 4       \\ \midrule
+                    Measured delay [ms]         & -419.854  & -376.063  & -373.375 & -390.646 \\
+                    Relative to previous [ms]   & N/A       & 43.791    & 2.688  & -17.271  \\ \bottomrule
+                \end{tabularx}
+                \caption{SoundSeeder next song test results.}
+                \label{fig:soundseedernextsongfigure}
+            \end{table}
+        \end{frame}
+    \subsection{What did we learn from the tests?}
+        \begin{frame}{Testing}\framesubtitle{What did we learn from the tests?}
             \begin{itemize}
                 \item Planning out tests, helped us figure out what was important
                 \begin{itemize}
-
                     \item Helped us design the app
+                    \item Helped us set goals
                 \end{itemize}
+                \bigskip
                 \item Our app has a low offset, most of the time
                 \begin{itemize}
                     \item Filtering out outliers
