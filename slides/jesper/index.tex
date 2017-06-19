@@ -1,7 +1,6 @@
 \section{Design}
 \author{Jesper}
 \begin{frame}{Design}
-	\framesubtitle{Separation}
 	\begin{itemize}
 		\item{Reading/Decoding MP3}
 		\item{Playing audio synchronously}
@@ -11,11 +10,14 @@
 \end{frame}
 
 \section{Decoding}
+\subsection{Assumption}
 
 \begin{frame}{Decoding}
 	\framesubtitle{Assumption}
 	Fast reading and decoding of MP3 data isn't feasible in pure Java
 \end{frame}
+
+\subsection{JNI}
 
 \begin{frame}{Decoding}
 	\framesubtitle{JNI to the rescue}
@@ -80,21 +82,18 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Decoding}
-	\framesubtitle{Realization}
-	While developing the later parts of the system we happened upon the
-	android class called \textbf{MediaCodec}, which would have solved
-	the problem.
-\end{frame}
+\subsection{Realization}
 
 \begin{frame}{Decoding}
-	\framesubtitle{Realization}
+	\framesubtitle{An inconvenient truth}
 	While developing the later parts of the system we happened upon the
 	android class called \textbf{MediaCodec}, which would have solved
 	the problem.
 \end{frame}
 
 \section{Playback}
+\subsection{Observation}
+
 \begin{frame}{Playback}
 	\framesubtitle{Observation}
 	Other apps seem to \textbf{drift}, which would indicate a difference
@@ -102,6 +101,7 @@
 	synchronization to stay synchronized.
 \end{frame}
 
+\subsection{Solution}
 \begin{frame}[fragile]{Playback}
 	\framesubtitle{The idea}
 	\begin{figure}
@@ -192,6 +192,7 @@
 	\end{figure}
 \end{frame}
 
+\subsection{Approximating}
 \begin{frame}{Playback}
 	\framesubtitle{Observation}
 	The mismatches are often below 1000 bytes ($5.6ms$) \textbf{per
@@ -238,6 +239,7 @@
 	\end{figure}
 \end{frame}
 
+\subsection{Realization}
 \begin{frame}{Playback}
 	\framesubtitle{Realization}
 	Our discovery of MediaCodec led us to \textbf{MediaSync}, which
@@ -245,11 +247,16 @@
 	scheduling audio. Unfortunately we discovered it too late.
 \end{frame}
 
+\section{Synchronization}
+\subsection{Observation}
+
 \begin{frame}{Synchronization}
 	\framesubtitle{Observation}
 	Content synchronisation is \textbf{largely} a matter of agreeing on
 	some \textbf{wall-time}, and using that as the authoritative source.
 \end{frame}
+
+\subsection{Algorithm}
 
 \begin{frame}{Synchronization}
 	\framesubtitle{Synchronization algorithm}
