@@ -46,7 +46,7 @@
     \framesubtitle{Fixing Critical Issues}
     \begin{description}
         \item [Issue] When the screen of a slave is shut down, it stops playing.
-        \item [Cause] The network connection to the master is terminated due to not handling process life cycle properly.
+        \item [Cause] The network connection to the master is terminated due to not handling Android processes properly.
         \item [Solution] We need to introduce wakelocks and persistent notifications for the network to keep the data stream alive.
     \end{description}
 \end{frame}
